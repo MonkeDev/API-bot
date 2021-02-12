@@ -20,6 +20,7 @@ module.exports = class {
         })).json();
 
 
+        allUsers = allUsers.filter(x => x);
         allUsers = allUsers.sort((a, b) => b.stats.total-a.stats.total);
         allUsers = allUsers.slice(0, 25);
         let desc = '';

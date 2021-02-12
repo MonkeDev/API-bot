@@ -2,7 +2,7 @@
     "BOT_TOKEN": "",
     "PREFIX": "",
     "ADMINS": [],
-    "BASE_API_LINK": "https://api.monke.vip/admin",
+    "BASE_API_LINK": "https://api.monkedev.com/admin",
     "API_ADMIN": "",
     "API_KEY": ""
 }

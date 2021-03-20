@@ -1,6 +1,8 @@
 const { Client } = require('eris');
 const config = require('./config.json');
 const fs = require('fs');
+const fetch = require('node-fetch').default;
+const pm = require('pretty-ms');
 
 class apiBot extends Client {
     constructor(token, options) {
@@ -18,6 +20,7 @@ class apiBot extends Client {
 const bot = new apiBot(config.BOT_TOKEN, {});
 
 bot.on('messageCreate', async msg => {
+    return
     if(msg.author.bot || !msg.channel.guild || !msg.content.startsWith(bot.config.PREFIX)) return;
 
     let args = msg.content.slice(bot.config.PREFIX.length).split(' ');
@@ -30,12 +33,38 @@ bot.on('messageCreate', async msg => {
     cmd.run(msg, args.slice(1));
 });
 
-bot.on('ready', () => { 
+let message;
+bot.on('ready', async () => { 
     console.log(bot.user.username + ' is ready!');
     bot.editStatus("idle", {
         name: `${bot.config.PREFIX}help`,
         type: 3
     });
+
+    if(!message && !bot.config.messageID) {
+        message = await bot.createMessage(bot.config.channelID, 'Hello World');
+        bot.config.messageID = message.id;
+        fs.writeFileSync(__dirname + '/config.json', JSON.stringify(bot.config));
+    } else message = await bot.getMessage(bot.config.channelID, bot.config.messageID);
+
+    setInterval(async () => {
+        const before = Date.now();
+        let res = await fetch('https://api.monkedev.com/info?key=' + bot.config.API_KEY);
+        const ping = Date.now() - before;
+        res = await res.json();
+        console.log(res)
+        message.edit({
+            embed: {
+                title: 'API Stats',
+                description: `**Ping:** \`${pm(ping)}\`\
+                \n**Alltime req (3/20/2021 ~ Now):** \`${res.req.allTime}\`\
+                \n**Req (This process)**: \`${res.req.thisProcess.toLocaleString()}\`\
+                \n**Avg req/m**: \`${(res.req.thisProcess / ((res.uptime / 1000) / 60)).toFixed(2).toLocaleUpperCase()}\``,
+                color: 0xf7c38e
+            }
+        });
+    }, 6000);
+
 });
 
 const Init = async () => {

@@ -27,10 +27,11 @@ module.exports = class {
                 fields: [],
                 color: 0xFFA500
             }
-        }
+        };
+
         toSend.embed.fields.push({name: 'Request', value: `Total: ${res.stats.total}`, inline: true});
         toSend.embed.fields.push({name: 'Rate-limit', value: `Max: ${res.ratelimit.max}\nUsed: ${res.ratelimit.used}`, inline: true});
-
+        if(msg.content.endsWith('--admin') && this.bot.config.ADMINS.includes(msg.author.id)) toSend.embed.fields.push({name: 'Key', value: res.key, inline: true});
         msg.channel.createMessage(toSend);
     }
 }

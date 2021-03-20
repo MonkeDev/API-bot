@@ -53,8 +53,8 @@ bot.on('ready', async () => {
         res = await res.json();
         console.log(res)
         message.edit({
+            content: '',
             embed: {
-                content: '',
                 title: 'API Stats',
                 description: `**Ping:** \`${pm(ping)}\`\
                 \n**Alltime req (3/20/2021 ~ Now):** \`${res.req.allTime}\`\
@@ -64,7 +64,7 @@ bot.on('ready', async () => {
                 timestamp: new Date
             }
         });
-    }, 6000);
+    }, 60 * 1000);
 
 });
 

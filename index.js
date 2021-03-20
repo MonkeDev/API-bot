@@ -51,7 +51,6 @@ bot.on('ready', async () => {
         let res = await fetch('https://api.monkedev.com/info?key=' + bot.config.API_KEY);
         const ping = Date.now() - before;
         res = await res.json();
-        console.log(res)
         message.edit({
             content: '',
             embed: {
@@ -61,6 +60,9 @@ bot.on('ready', async () => {
                 \n**Req (This process)**: \`${res.req.thisProcess.toLocaleString()}\`\
                 \n**Avg req/m**: \`${(res.req.thisProcess / ((res.uptime / 1000) / 60)).toFixed(2).toLocaleUpperCase()}\``,
                 color: 0xf7c38e,
+                footer: {
+                    text: 'Last Updated'
+                },
                 timestamp: new Date
             }
         });

@@ -55,6 +55,7 @@ bot.on('ready', async () => {
         console.log(res)
         message.edit({
             embed: {
+                content: '',
                 title: 'API Stats',
                 description: `**Ping:** \`${pm(ping)}\`\
                 \n**Alltime req (3/20/2021 ~ Now):** \`${res.req.allTime}\`\

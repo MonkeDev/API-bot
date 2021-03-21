@@ -56,7 +56,7 @@ bot.on('ready', async () => {
             embed: {
                 title: 'API Stats',
                 description: `**Ping:** \`${pm(ping)}\`\
-                \n**Alltime req (3/20/2021 ~ Now):** \`${res.req.allTime}\`\
+                \n**Alltime req (3/20/2021 ~ Now):** \`${res.req.allTime.toLocaleUpperCase()}\`\
                 \n**Req (This process)**: \`${res.req.thisProcess.toLocaleString()}\`\
                 \n**Avg req/m**: \`${(res.req.thisProcess / ((res.uptime / 1000) / 60)).toFixed(2).toLocaleUpperCase()}\``,
                 color: 0xf7c38e,

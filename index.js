@@ -67,7 +67,7 @@ bot.on('ready', async () => {
                 timestamp: new Date
             }
         });
-    }, 10 * 1000);
+    }, 60 * 1000);
 
 });
 

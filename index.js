@@ -20,7 +20,7 @@ class apiBot extends Client {
 const bot = new apiBot(config.BOT_TOKEN, {});
 
 bot.on('messageCreate', async msg => {
-    if(msg.author.bot || !msg.channel.guild || !msg.content.startsWith(bot.config.PREFIX)) return;
+    if(msg.author.bot || !msg.channel.guild || !msg.content.toLowerCase().startsWith(bot.config.PREFIX)) return;
 
     let args = msg.content.slice(bot.config.PREFIX.length).split(' ');
     const cmd = bot.commands.get(args[0].toLowerCase()) || bot.alli.get(args[0].toLowerCase());
